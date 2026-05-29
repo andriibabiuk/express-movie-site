@@ -10,15 +10,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<h1>Now Playing</h1>
+					<h1>OMDB Movies</h1>
 				</div>
 				<div class="col-sm-12">
 					<% if (typeof parsedData !== 'undefined' && Array.isArray(parsedData)) { %>
 						<% parsedData.forEach((movie)=>{ %>
 							<div class="col-md-3 col-sm-4 poster">
-								<img src="<%= imageBaseUrl + movie.poster_path %>"/>
+								<a href="/movie/<%= movie.imdbID %>">
+									<img src="<%= movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Poster' %>" referrerpolicy="no-referrer"/>
+								</a>
+								<br/>
+								<strong><a href="/movie/<%= movie.imdbID %>"><%= movie.Title %></a></strong>
+								(<%= movie.Year %>)
 							</div>
-							<%= movie.title %>
 						<% }) %>
 					<% } else { %>
 						<p>No movies to display.</p>

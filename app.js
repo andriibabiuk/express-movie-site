@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,7 +9,16 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 const helmet = require('helmet');
-app.use(helmet());
+app.use(
+	helmet({
+		contentSecurityPolicy: {
+			directives: {
+				defaultSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", '*'],
+				imgSrc: ["'self'", 'data:', '*'],
+			},
+		},
+	}),
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
