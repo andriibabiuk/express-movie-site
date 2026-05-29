@@ -38,4 +38,23 @@ router.get('/movie/:id', function (req, res, next) {
 	});
 });
 
+/* POST search functionality. */
+router.post('/search', function (req, res, next) {
+	const searchTerm = req.body.movieSearch;
+	if (!searchTerm) {
+		return res.redirect('/');
+	}
+	const category = req.body.cat || 'movie';
+	const searchUrl = `${apiBaseUrl}/?apikey=${apiKey}&s=${encodeURIComponent(searchTerm)}&type=${category}`;
+
+	request(searchUrl, (error, response, movieData) => {
+		if (error) {
+			console.error('Network Error:', error);
+			return res.render('index', { parsedData: [] });
+		}
+		const parsedData = JSON.parse(movieData);
+		res.render('index', { parsedData: parsedData.Search || [] });
+	});
+});
+
 module.exports = router;
