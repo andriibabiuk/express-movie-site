@@ -27,6 +27,28 @@
 						<p class="single-movie-overview"><%= parsedData.Plot %></p>
 						<br/>
 						<a href="/" class="btn btn-primary mt-3">Back to Movies</a>
+						<button type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="moreInfoModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="moreInfoModalLabel">More Info - <%= parsedData.Title %></h4>
+									</div>
+									<div class="modal-body">
+										<p><strong>IMDb Link:</strong> <a href="https://www.imdb.com/title/<%= parsedData.imdbID %>" target="_blank">View on IMDb</a></p>
+										<p><strong>Release Date:</strong> <%= parsedData.Released && parsedData.Released !== 'N/A' ? parsedData.Released : 'Not Available' %></p>
+										<p><strong>Revenue:</strong> <%= parsedData.BoxOffice && parsedData.BoxOffice !== 'N/A' ? parsedData.BoxOffice : 'Not Available' %></p>
+										<p><strong>Production Companies:</strong> <%= parsedData.Production && parsedData.Production !== 'N/A' ? parsedData.Production : 'Not Available' %></p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				<% } else { %>
 					<h2>Movie not found.</h2>

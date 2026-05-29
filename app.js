@@ -15,6 +15,8 @@ app.use(
 			directives: {
 				defaultSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", '*'],
 				imgSrc: ["'self'", 'data:', '*'],
+				scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", '*'],
+				styleSrc: ["'self'", "'unsafe-inline'", '*'],
 			},
 		},
 	}),
