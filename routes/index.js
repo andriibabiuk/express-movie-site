@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const passport = require('passport');
 const request = require('request');
 const apiKey = process.env.API_KEY;
 const apiBaseUrl = 'http://www.omdbapi.com';
@@ -18,10 +19,11 @@ router.get('/', function (req, res, next) {
 			return res.render('index', { parsedData: [] });
 		}
 		const parsedData = JSON.parse(movieData);
-		console.log('OMDB API Response:', parsedData); // Check your terminal to see what OMDB returned!
+		console.log('OMDB API Response:', parsedData);
 		res.render('index', { parsedData: parsedData.Search || [] });
 	});
 });
+router.get('/login', passport.authenticate('github'));
 
 /* GET single movie page. */
 router.get('/movie/:id', function (req, res, next) {
