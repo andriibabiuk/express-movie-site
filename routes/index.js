@@ -19,12 +19,20 @@ router.get('/', function (req, res, next) {
 			return res.render('index', { parsedData: [] });
 		}
 		const parsedData = JSON.parse(movieData);
-		console.log('OMDB API Response:', parsedData);
 		res.render('index', { parsedData: parsedData.Search || [] });
 	});
 });
 router.get('/login', passport.authenticate('github'));
-
+router.get(
+	'/auth',
+	passport.authenticate('github', {
+		successRedirect: '/',
+		failureRedirect: '/loginFailed',
+	}),
+);
+router.get('/favorites', (req, res) => {
+	res.json(req.user.username);
+});
 /* GET single movie page. */
 router.get('/movie/:id', function (req, res, next) {
 	const movieId = req.params.id;
